@@ -16,14 +16,14 @@ interface Props {
 const RootLayout = ({ children }: Props) => {
   return (
     <html lang="en">
-      <Box sx={{ display: 'flex', height: '100vh' }}>
+      <Box component="body" sx={{ display: 'flex', height: '100vh' }}>
         <AppRouterCacheProvider>
           <ThemeRegistry options={{ key: 'mui-theme' }}>
             <Box
               component="main"
               sx={{
                 flexGrow: 1,
-                p: 3,
+                display: 'flex',
               }}
             >
               {children}

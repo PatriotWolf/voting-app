@@ -27,7 +27,6 @@ const HomePage = () => {
           mt: 2,
           px: { xs: 0, md: 20 },
           display: 'flex',
-          flexDirection: 'column',
         }}
       >
         <Grid item xs={12}>

@@ -14,6 +14,7 @@ const MediaCard = ({ title, description }: CardProps) => {
       <CardActionArea>
         <Image
           alt="Random image"
+          priority
           src="https://source.unsplash.com/random"
           width={640}
           height={480}
