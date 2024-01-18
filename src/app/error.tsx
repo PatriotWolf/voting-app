@@ -18,11 +18,17 @@ export default function Error({ error, reset }: Props) {
         justifyContent: 'center',
         alignItems: 'center',
         flexGrow: 1,
+        flexDirection: 'column',
         backgroundColor: 'primary.main',
+        gap: 1,
       }}
     >
-      <Typography variant="h2">Something went wrong!</Typography>
+      <Typography variant="h2" style={{ color: 'white' }}>
+        Something went wrong!
+      </Typography>
       <Button
+        variant="contained"
+        color="secondary"
         onClick={
           // Attempt to recover by trying to re-render the segment
           () => reset()
