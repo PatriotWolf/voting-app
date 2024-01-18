@@ -1,3 +1,5 @@
+'use client';
+
 import { Typography, Unstable_Grid2 } from '@mui/material/index';
 import { CardProps } from 'app/types';
 
