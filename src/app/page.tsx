@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { Box, Paper, Typography, Unstable_Grid2 } from '@mui/material/index';
+import { Box, Grid, Typography } from '@mui/material/index';
 
-import MediaCard from './components/MediaCard';
-import { catergories } from './constants';
+import VoteSection from './components/VoteSection';
+import { catergories, events } from './constants';
 
 const HomePage = () => {
   return (
@@ -19,34 +19,24 @@ const HomePage = () => {
       <Typography variant="h2" textAlign={'center'}>
         Voting App
       </Typography>
-      <Paper
-        elevation={10}
+      <Grid
+        container
+        rowSpacing={2}
         sx={{
           p: 2,
           mt: 2,
-          mx: { xs: 0, md: 20 },
+          px: { xs: 0, md: 20 },
           display: 'flex',
           flexDirection: 'column',
         }}
       >
-        <Unstable_Grid2
-          container
-          rowSpacing={3}
-          columnSpacing={3}
-          sx={{ maxWidth: '1400px', flexGrow: 1 }}
-        >
-          {catergories.map((category, index) => {
-            return (
-              <Unstable_Grid2 xs={12} md={6} lg={3} key={'main_card' + index}>
-                <MediaCard
-                  title={category.title}
-                  description={category.description}
-                />
-              </Unstable_Grid2>
-            );
-          })}
-        </Unstable_Grid2>
-      </Paper>
+        <Grid item xs={12}>
+          <VoteSection title="Category" list={catergories} />
+        </Grid>
+        <Grid item xs={12}>
+          <VoteSection title="Event" list={events} />
+        </Grid>
+      </Grid>
     </Box>
   );
 };
