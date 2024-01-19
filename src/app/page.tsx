@@ -1,96 +1,75 @@
-import Image from 'next/image';
+import React from 'react';
 
-import styles from './page.module.css';
+import { Box, ButtonGroup, Grid, Typography } from '@mui/material/index';
 
-export default function Home() {
+import { auth } from 'utils/auth';
+
+import { LoginButton, LogoutButton } from './components/ButtonLogin';
+import VoteSection from './components/VoteSection';
+import { catergories, events } from './constants';
+
+const HomePage = async () => {
+  const session = await auth();
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
+    <Box
+      component="main"
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignContent: 'center',
+        flexGrow: 1,
+        flexDirection: 'column',
+      }}
+    >
+      <Typography
+        variant="h2"
+        textAlign={'center'}
+        sx={{
+          pt: 2,
+        }}
+      >
+        Voting App
+      </Typography>
+      {session?.user.isAdmin && (
+        <Typography
+          variant="h2"
+          component="a"
+          href="/dashboard"
+          textAlign={'center'}
         >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+          Take me to dashboard
+        </Typography>
+      )}
+      <Grid
+        container
+        rowSpacing={2}
+        sx={{
+          p: 2,
+          mt: 2,
+          px: { xs: 3, md: 20 },
+          display: 'flex',
+          overflowY: 'scroll',
+          flexGrow: 1,
+        }}
+      >
+        <Grid item xs={12}>
+          <VoteSection
+            title="Category"
+            list={catergories}
+            isAdmin={session?.user.isAdmin === true}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <VoteSection
+            title="Event"
+            list={events}
+            isAdmin={session?.user.isAdmin === true}
+          />
+        </Grid>
+      </Grid>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+      {session ? <LogoutButton /> : <LoginButton />}
+    </Box>
   );
-}
+};
+export default HomePage;
