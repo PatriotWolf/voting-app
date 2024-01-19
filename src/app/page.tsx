@@ -21,7 +21,13 @@ const HomePage = async () => {
         flexDirection: 'column',
       }}
     >
-      <Typography variant="h2" textAlign={'center'}>
+      <Typography
+        variant="h2"
+        textAlign={'center'}
+        sx={{
+          pt: 2,
+        }}
+      >
         Voting App
       </Typography>
       {session?.user.isAdmin && (
@@ -40,8 +46,10 @@ const HomePage = async () => {
         sx={{
           p: 2,
           mt: 2,
-          px: { xs: 0, md: 20 },
+          px: { xs: 3, md: 20 },
           display: 'flex',
+          overflowY: 'scroll',
+          flexGrow: 1,
         }}
       >
         <Grid item xs={12}>
