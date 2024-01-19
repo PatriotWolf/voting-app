@@ -1,8 +1,11 @@
 import type { Metadata } from 'next';
 
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { Box } from '@mui/material/index';
 import ThemeRegistry from 'ThemeRegistry';
+
+import { NextAuthProvider } from './auth/provider';
+import { LoginButton, LogoutButton } from './components/ButtonLogin';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -13,23 +16,25 @@ interface Props {
   children: React.ReactNode;
 }
 
-const RootLayout = ({ children }: Props) => {
+const RootLayout = async ({ children }: Props) => {
   return (
     <html lang="en">
       <Box component="body" sx={{ display: 'flex', height: '100vh' }}>
-        <AppRouterCacheProvider>
-          <ThemeRegistry options={{ key: 'mui-theme' }}>
-            <Box
-              component="main"
-              sx={{
-                flexGrow: 1,
-                display: 'flex',
-              }}
-            >
-              {children}
-            </Box>
-          </ThemeRegistry>
-        </AppRouterCacheProvider>
+        <NextAuthProvider>
+          <AppRouterCacheProvider>
+            <ThemeRegistry options={{ key: 'mui-theme' }}>
+              <Box
+                component="main"
+                sx={{
+                  flexGrow: 1,
+                  display: 'flex',
+                }}
+              >
+                {children}
+              </Box>
+            </ThemeRegistry>
+          </AppRouterCacheProvider>
+        </NextAuthProvider>
       </Box>
     </html>
   );
