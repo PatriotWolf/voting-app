@@ -1,6 +1,14 @@
 'use client';
 
-import { Typography, Unstable_Grid2 } from '@mui/material/index';
+import Image from 'next/image';
+
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Typography,
+  Unstable_Grid2,
+} from '@mui/material/index';
 import { CardProps } from 'app/types';
 
 import MediaCard from './MediaCard';
@@ -8,9 +16,10 @@ import MediaCard from './MediaCard';
 interface Props {
   title: string;
   list: CardProps[];
+  isAdmin: boolean;
 }
 
-const VoteSection = ({ title, list }: Props) => {
+const VoteSection = ({ title, list, isAdmin }: Props) => {
   return (
     <>
       <Typography variant="h4">{title}</Typography>
@@ -35,6 +44,41 @@ const VoteSection = ({ title, list }: Props) => {
             </Unstable_Grid2>
           );
         })}
+
+        {isAdmin && (
+          <Unstable_Grid2 xs={12} md={6} lg={3} style={{ display: 'flex' }}>
+            <Card
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                flexDirection: 'column',
+              }}
+            >
+              <CardActionArea>
+                <Image
+                  alt="Random image"
+                  priority
+                  src="/download.png"
+                  width={640}
+                  height={480}
+                  style={{
+                    maxWidth: '100%',
+                    height: '200px',
+                    objectFit: 'cover',
+                  }}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    add {title}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Unstable_Grid2>
+        )}
       </Unstable_Grid2>
     </>
   );

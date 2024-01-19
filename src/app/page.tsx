@@ -12,6 +12,7 @@ const HomePage = async () => {
   const session = await auth();
   return (
     <Box
+      component="main"
       sx={{
         display: 'flex',
         justifyContent: 'center',
@@ -23,9 +24,16 @@ const HomePage = async () => {
       <Typography variant="h2" textAlign={'center'}>
         Voting App
       </Typography>
-      <Typography variant="h2" textAlign={'center'}>
-        {JSON.stringify(session?.user)}
-      </Typography>
+      {session?.user.isAdmin && (
+        <Typography
+          variant="h2"
+          component="a"
+          href="/dashboard"
+          textAlign={'center'}
+        >
+          Take me to dashboard
+        </Typography>
+      )}
       <Grid
         container
         rowSpacing={2}
@@ -37,10 +45,18 @@ const HomePage = async () => {
         }}
       >
         <Grid item xs={12}>
-          <VoteSection title="Category" list={catergories} />
+          <VoteSection
+            title="Category"
+            list={catergories}
+            isAdmin={session?.user.isAdmin === true}
+          />
         </Grid>
         <Grid item xs={12}>
-          <VoteSection title="Event" list={events} />
+          <VoteSection
+            title="Event"
+            list={events}
+            isAdmin={session?.user.isAdmin === true}
+          />
         </Grid>
       </Grid>
 

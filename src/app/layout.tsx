@@ -5,7 +5,6 @@ import { Box } from '@mui/material/index';
 import ThemeRegistry from 'ThemeRegistry';
 
 import { NextAuthProvider } from './auth/provider';
-import { LoginButton, LogoutButton } from './components/ButtonLogin';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -23,15 +22,7 @@ const RootLayout = async ({ children }: Props) => {
         <NextAuthProvider>
           <AppRouterCacheProvider>
             <ThemeRegistry options={{ key: 'mui-theme' }}>
-              <Box
-                component="main"
-                sx={{
-                  flexGrow: 1,
-                  display: 'flex',
-                }}
-              >
-                {children}
-              </Box>
+              {children}
             </ThemeRegistry>
           </AppRouterCacheProvider>
         </NextAuthProvider>
