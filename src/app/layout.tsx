@@ -22,7 +22,15 @@ const RootLayout = async ({ children }: Props) => {
         <NextAuthProvider>
           <AppRouterCacheProvider>
             <ThemeRegistry options={{ key: 'mui-theme' }}>
-              {children}
+              <Box
+                component="main"
+                sx={{
+                  flexGrow: 1,
+                  display: 'flex',
+                }}
+              >
+                {children}
+              </Box>
             </ThemeRegistry>
           </AppRouterCacheProvider>
         </NextAuthProvider>

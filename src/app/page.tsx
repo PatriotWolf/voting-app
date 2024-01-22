@@ -30,16 +30,9 @@ const HomePage = async () => {
       >
         Voting App
       </Typography>
-      {session?.user.isAdmin && (
-        <Typography
-          variant="h2"
-          component="a"
-          href="/dashboard"
-          textAlign={'center'}
-        >
-          Take me to dashboard
-        </Typography>
-      )}
+      <Typography variant="h2" textAlign={'center'}>
+        {JSON.stringify(session?.user)}
+      </Typography>
       <Grid
         container
         rowSpacing={2}
