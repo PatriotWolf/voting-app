@@ -29,7 +29,7 @@ const LoginOption = () => {
       const res = await signIn('credentials', {
         redirect: false,
         email: isAdmin ? 'admin@admin.com' : 'user@test.com',
-        password: 'temp',
+        password: isAdmin ? 'admin' : 'user',
         callbackUrl,
       });
 

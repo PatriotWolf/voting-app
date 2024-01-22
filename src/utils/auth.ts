@@ -1,6 +1,9 @@
-import NextAuth, { NextAuthConfig, User } from 'next-auth';
+import NextAuth, { NextAuthConfig } from 'next-auth';
 import { Session } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import { db } from 'lib/db';
 
 const authOptions: NextAuthConfig = {
   session: {
@@ -17,17 +20,34 @@ const authOptions: NextAuthConfig = {
     CredentialsProvider({
       name: 'Sign in',
       async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) {
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
+        if (!email || !password) {
           return null;
         }
+        const user = await db.user.findFirst({
+          where: { email },
+        });
+        if (
+          user &&
+          user.password
+          // bcrypt.compareSync(password, user.password)    TO-DO: Troubleshoot node-gyp problem
+        ) {
+          return {
+            id: user.id.toString(),
+            name: user.name,
+            email: user.email,
+            isAdmin: user.role === 'ADMIN',
+          };
+        }
+        // const users = [
+        //   { id: '1', name: 'Admin', email: 'admin@admin.com', isAdmin: true },
+        //   { id: '2', name: 'User', email: 'user@test.com' },
+        // ];
 
-        const users = [
-          { id: '1', name: 'Admin', email: 'admin@admin.com', isAdmin: true },
-          { id: '2', name: 'User', email: 'user@test.com' },
-        ];
-        const user = users.find(user => user.email === credentials.email);
-
-        return user || null;
+        return null;
       },
     }),
   ],
@@ -50,6 +70,7 @@ const authOptions: NextAuthConfig = {
       return token;
     },
   },
+  adapter: PrismaAdapter(db),
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth(authOptions);
