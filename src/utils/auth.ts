@@ -30,13 +30,14 @@ const authOptions: NextAuthConfig = {
         const user = await db.user.findFirst({
           where: { email },
         });
+        console.log(user, 'asdasdas');
         if (
           user &&
           user.password
           // bcrypt.compareSync(password, user.password)    TO-DO: Troubleshoot node-gyp problem
         ) {
           return {
-            id: user.id.toString(),
+            id: user.id,
             name: user.name,
             email: user.email,
             isAdmin: user.role === 'ADMIN',
@@ -55,19 +56,27 @@ const authOptions: NextAuthConfig = {
     // @ts-ignore //TODO:  fix token as JWT instead of any
     session: async ({ session, token }) => {
       if (session.user) {
+        session.user.id = token.id;
         session.user.isAdmin = token.isAdmin;
       }
       return session;
     },
-    jwt: ({ token, account, profile, user }) => {
-      if (user) {
-        token.isAdmin = (user as Session['user']).isAdmin;
+    jwt: async ({ token, account, profile, user }) => {
+      const userByEmail = await db.user.findFirst({
+        where: { email: token.email },
+      });
+
+      if (!userByEmail) {
+        token.id = user?.id;
+        return token;
       }
-      if (account) {
-        token.accessToken = account.access_token;
-        token.id = profile?.id;
-      }
-      return token;
+
+      return {
+        ...token,
+        id: userByEmail.id,
+        name: userByEmail.name,
+        email: userByEmail.email,
+      };
     },
   },
   adapter: PrismaAdapter(db),

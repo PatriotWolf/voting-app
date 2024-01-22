@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Box, ButtonGroup, Grid, Typography } from '@mui/material/index';
+import { Box, Grid, Typography } from '@mui/material/index';
 
 import { auth } from 'utils/auth';
 
