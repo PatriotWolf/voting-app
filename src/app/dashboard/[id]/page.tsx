@@ -4,6 +4,8 @@ import { Typography } from '@mui/material/index';
 import PollCard from 'app/components/PollCard';
 import { db } from 'lib/db';
 
+import PollActionButton from './components/PollActionButton';
+
 interface PageProps {
   params: {
     id: string;
@@ -30,6 +32,7 @@ const PollDetailsPage = async ({ params: { id } }: PageProps) => {
         Vote view for &ldquo;{poll.title}&rdquo;
       </Typography>
       <PollCard vote={poll} viewMode="display" />
+      <PollActionButton pollId={poll.id} />
     </>
   );
 };
