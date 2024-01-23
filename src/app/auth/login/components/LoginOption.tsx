@@ -1,5 +1,7 @@
 'use client';
 
+import { ChangeEvent, useState } from 'react';
+
 import { signIn } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -42,8 +44,8 @@ const LoginOption = () => {
   return (
     <Grid container spacing={1}>
       <Grid item xs={6}>
-        <Card sx={{ p: 2, bgcolor: 'secondary.main', color: 'white' }}>
-          <CardActionArea onClick={() => onSubmit(true)}>
+        <Card sx={{ bgcolor: 'secondary.main', color: 'white' }}>
+          <CardActionArea onClick={() => onSubmit(true)} sx={{ p: 2 }}>
             <Container>
               <Avatar
                 alt="Profile Image"
@@ -57,13 +59,25 @@ const LoginOption = () => {
                 />
               </Avatar>
             </Container>
-            <Typography variant="h3">As Admin</Typography>
+            <Typography variant="h4">As Admin</Typography>
           </CardActionArea>
         </Card>
       </Grid>
-      <Grid item xs={6}>
-        <Card sx={{ p: 2 }} onClick={() => onSubmit(false)}>
-          <CardActionArea>
+      <Grid item xs={6} sx={{ display: 'flex' }}>
+        <Card
+          sx={{
+            display: 'flex',
+          }}
+        >
+          <CardActionArea
+            onClick={() => onSubmit(false)}
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexDirection: 'column',
+              p: 2,
+            }}
+          >
             <Container>
               <Avatar
                 alt="Profile Image"
@@ -76,7 +90,7 @@ const LoginOption = () => {
                 />
               </Avatar>
             </Container>
-            <Typography variant="h3">As User</Typography>
+            <Typography variant="h4">As User</Typography>
           </CardActionArea>
         </Card>
       </Grid>

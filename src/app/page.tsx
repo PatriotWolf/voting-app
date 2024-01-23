@@ -1,15 +1,16 @@
 import React from 'react';
 
-import { Box, Grid, Typography } from '@mui/material/index';
+import { Box, ButtonGroup, Grid, Typography } from '@mui/material/index';
 
 import { auth } from 'utils/auth';
 
 import { LoginButton, LogoutButton } from './components/ButtonLogin';
 import VoteSection from './components/VoteSection';
-import { catergories, events } from './constants';
+import { catergories, events, isAdminSession } from './constants';
 
 const HomePage = async () => {
   const session = await auth();
+  const isAdmin = isAdminSession(session);
   return (
     <Box
       component="main"
@@ -30,9 +31,16 @@ const HomePage = async () => {
       >
         Voting App
       </Typography>
-      <Typography variant="h2" textAlign={'center'}>
-        {JSON.stringify(session?.user)}
-      </Typography>
+      {isAdmin && (
+        <Typography
+          variant="h2"
+          component="a"
+          href="/dashboard"
+          textAlign={'center'}
+        >
+          Take me to dashboard
+        </Typography>
+      )}
       <Grid
         container
         rowSpacing={2}
@@ -46,18 +54,10 @@ const HomePage = async () => {
         }}
       >
         <Grid item xs={12}>
-          <VoteSection
-            title="Category"
-            list={catergories}
-            isAdmin={session?.user.isAdmin === true}
-          />
+          <VoteSection title="Category" list={catergories} isAdmin={isAdmin} />
         </Grid>
         <Grid item xs={12}>
-          <VoteSection
-            title="Event"
-            list={events}
-            isAdmin={session?.user.isAdmin === true}
-          />
+          <VoteSection title="Event" list={events} isAdmin={isAdmin} />
         </Grid>
       </Grid>
 

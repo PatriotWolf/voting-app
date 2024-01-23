@@ -28,7 +28,7 @@ export const CreatePollSchema = z.object({
   options: z
     .array(
       z.object({
-        text: z.string().nonempty(),
+        text: z.string().min(1),
       })
     )
     .min(2, { message: 'You must include at least two options.' })
