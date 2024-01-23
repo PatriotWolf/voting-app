@@ -36,7 +36,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(user);
   } catch (error: any) {
-    console.log('[USERS_POST]', error);
     return new NextResponse('Initial error', { status: 500 });
   }
 }

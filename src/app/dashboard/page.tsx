@@ -3,6 +3,7 @@ import React from 'react';
 import { redirect } from 'next/navigation';
 
 import {
+  Button,
   List,
   ListItem,
   ListItemButton,
@@ -47,6 +48,9 @@ const DashboardPage = async () => {
           </ListItem>
         ))}
       </List>
+      <Button component="a" href={'/dashboard/create'}>
+        Add Vote
+      </Button>
     </>
   );
 };

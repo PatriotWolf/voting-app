@@ -49,7 +49,7 @@ export async function POST(request: Request) {
   if (!session) {
     return NextResponse.json('Unauthorized', { status: 401 });
   }
-  console.log(session.user);
+
   const { title, description, options, endDate } = await request.json();
   const { success } = CreatePollSchema.safeParse({
     title,

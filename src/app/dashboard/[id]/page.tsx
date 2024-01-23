@@ -6,7 +6,7 @@ import { db } from 'lib/db';
 
 interface PageProps {
   params: {
-    slug: string;
+    id: string;
   };
 }
 
@@ -20,11 +20,10 @@ async function getPoll(id: string) {
   return poll;
 }
 
-const BookDetailsPage = async ({ params: { slug } }: PageProps) => {
-  const poll = await getPoll(slug);
+const PollDetailsPage = async ({ params: { id } }: PageProps) => {
+  const poll = await getPoll(id);
 
   if (!poll) notFound();
-
   return (
     <>
       <Typography variant="h3">
@@ -35,4 +34,4 @@ const BookDetailsPage = async ({ params: { slug } }: PageProps) => {
   );
 };
 
-export default BookDetailsPage;
+export default PollDetailsPage;

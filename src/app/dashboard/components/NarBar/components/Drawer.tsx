@@ -13,8 +13,17 @@ const DrawerContent = () => (
 
     <List>
       <ListItem disablePadding>
+        <ListItemButton
+          component="a"
+          href={'/dashboard'}
+          sx={{ textAlign: 'center' }}
+        >
+          <ListItemText primary={'List All Vote'} />
+        </ListItemButton>
+      </ListItem>
+      <ListItem disablePadding>
         <ListItemButton component="a" href={'/'} sx={{ textAlign: 'center' }}>
-          <ListItemText primary={'See main page'} />
+          <ListItemText primary={'Main Page'} />
         </ListItemButton>
       </ListItem>
     </List>

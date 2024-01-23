@@ -19,12 +19,12 @@ export const RegisterSchema = z.object({
 });
 
 export const CreatePollSchema = z.object({
-  description: z.string().optional(),
   title: z
     .string()
     .min(1, { message: 'You must include a title.' })
     .max(200, { message: 'Title must contain a maximum of 200 characters.' }),
-
+  description: z.string().optional(),
+  endDate: z.union([z.string().nonempty(), z.date()]),
   options: z
     .array(
       z.object({
