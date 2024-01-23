@@ -2,21 +2,52 @@ import React from 'react';
 
 import { redirect } from 'next/navigation';
 
-import { Typography } from '@mui/material/index';
+import {
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from '@mui/material/index';
+import { isAdminSession } from 'app/constants';
+import { db } from 'lib/db';
 
 import { auth } from 'utils/auth';
 
-import MainMenu from './components/MainBox';
+async function getVote() {
+  const book = await db.poll.findMany({});
+  return book;
+}
 
 const DashboardPage = async () => {
   const session = await auth();
-  if (session && !session.user.isAdmin) {
+  const isAdmin = isAdminSession(session);
+  if (session && !isAdmin) {
     redirect('/');
   }
+  const votes = await getVote();
   return (
-    <MainMenu>
-      <Typography>This is dashboard page for admin</Typography>
-    </MainMenu>
+    <>
+      <Typography variant="h3">This is dashboard page for admin</Typography>
+      <Typography variant="h6">Vote</Typography>
+      <List>
+        {votes.map(vote => (
+          <ListItem disablePadding key={'Vote_List' + vote.id}>
+            <ListItemButton
+              component="a"
+              href={'/dashboard/' + vote.id}
+              sx={{}}
+            >
+              <ListItemText
+                primary={vote.title}
+                about={vote.description || undefined}
+              />
+              <ListItemText primary={vote.createdAt.toDateString()} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </>
   );
 };
 

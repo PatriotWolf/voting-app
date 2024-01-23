@@ -5,7 +5,7 @@ import { Box, Toolbar, useMediaQuery, useTheme } from '@mui/material';
 import { drawerWidth } from '../constants';
 
 interface Props {
-  children: React.ReactElement;
+  children: React.ReactNode;
 }
 const MainMenu = ({ children }: Props) => {
   const theme = useTheme();
@@ -16,7 +16,7 @@ const MainMenu = ({ children }: Props) => {
       sx={{
         marginLeft: `${isSmallScreen ? 0 : drawerWidth}px`,
         display: 'flex',
-
+        p: 2,
         flexGrow: 1,
         flexDirection: 'column',
       }}
