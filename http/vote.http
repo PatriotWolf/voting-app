@@ -2,6 +2,7 @@ GET http://localhost:3000/api/vote HTTP/1.1
 Cookie: authjs.session-token=<cookie>
 
 ###
+
 POST http://localhost:3000/api/vote HTTP/1.1
 Cookie: authjs.session-token=<cookie>
 content-type: application/json
@@ -11,3 +12,26 @@ content-type: application/json
     "description":"test",
     "options":[{ "text": "Option 1" }, { "text": "Option 2" }]  
 }
+
+###
+
+PUT http://localhost:3000/api/vote/<id> HTTP/1.1
+Cookie: authjs.session-token=<cookie>
+content-type: application/json
+
+{
+    "title":"test",
+    "description":"test",
+    "endDate":"2024-01-24T09:09:06.427Z",
+    "oldOptions":[
+        {"optionId":"clroxnm090008m9hfuj629io3","text":"Option 1"},
+        {"optionId":"clroxnm090009m9hfakgb9d02","text":"Option 2"}
+    ],
+    "deleteOptions":[],
+    "options":[]
+}
+
+###
+
+DELETE  http://localhost:3000/api/vote/<id> HTTP/1.1
+Cookie: authjs.session-token=<cookie>

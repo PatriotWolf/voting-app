@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import { Delete, Edit } from '@mui/icons-material';
-import { Box, Button } from '@mui/material';
+import { Box, Button, ButtonGroup } from '@mui/material';
 
 import { deletePoll } from '../utils';
 
@@ -28,16 +28,19 @@ const PollActionButton = ({ pollId }: Props) => {
         mt: 3,
       }}
     >
-      <Button variant="contained" startIcon={<Delete />} onClick={onDelete}>
-        Delete
-      </Button>
-      <Button
-        variant="contained"
-        href={`/dashboard/${pollId}/update`}
-        startIcon={<Edit />}
-      >
-        Update
-      </Button>
+      <ButtonGroup>
+        <Button variant="contained" startIcon={<Delete />} onClick={onDelete}>
+          Delete
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          href={`/dashboard/${pollId}/update`}
+          startIcon={<Edit />}
+        >
+          Update
+        </Button>
+      </ButtonGroup>
     </Box>
   );
 };
