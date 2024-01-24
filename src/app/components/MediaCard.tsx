@@ -13,11 +13,16 @@ import { CardProps } from 'app/types';
 const MediaCard = ({ title, description }: CardProps) => {
   return (
     <Card>
-      <CardActionArea>
+      <CardActionArea
+        sx={{
+          bgcolor: 'secondary.main',
+          color: 'common.white',
+        }}
+      >
         <Image
           alt="Random image"
           priority
-          src="https://source.unsplash.com/random"
+          src="/vote-card-image.avif"
           width={640}
           height={480}
           style={{
@@ -30,7 +35,7 @@ const MediaCard = ({ title, description }: CardProps) => {
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.main">
             {description}
           </Typography>
         </CardContent>

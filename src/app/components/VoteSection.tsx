@@ -9,13 +9,13 @@ import {
   Typography,
   Unstable_Grid2,
 } from '@mui/material/index';
-import { CardProps } from 'app/types';
 
 import MediaCard from './MediaCard';
+import { Poll } from '.prisma/client';
 
 interface Props {
   title: string;
-  list: CardProps[];
+  list: Poll[];
   isAdmin: boolean;
 }
 
@@ -39,7 +39,7 @@ const VoteSection = ({ title, list, isAdmin }: Props) => {
             >
               <MediaCard
                 title={listElement.title}
-                description={listElement.description}
+                description={listElement.description || ''}
               />
             </Unstable_Grid2>
           );
