@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { Delete } from '@mui/icons-material';
+import { Delete, Edit } from '@mui/icons-material';
 import { Box, Button } from '@mui/material';
 
 import { deletePoll } from '../utils';
@@ -20,6 +20,7 @@ const PollActionButton = ({ pollId }: Props) => {
       router.push(`/dashboard`);
     } catch (error) {}
   };
+
   return (
     <Box
       component="div"
@@ -29,6 +30,13 @@ const PollActionButton = ({ pollId }: Props) => {
     >
       <Button variant="contained" startIcon={<Delete />} onClick={onDelete}>
         Delete
+      </Button>
+      <Button
+        variant="contained"
+        href={`/dashboard/${pollId}/update`}
+        startIcon={<Edit />}
+      >
+        Update
       </Button>
     </Box>
   );

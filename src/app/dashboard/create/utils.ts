@@ -1,4 +1,4 @@
-import { CreatePoll } from 'schemas';
+import { CreatePoll, UpdatePoll } from 'schemas';
 
 // Generates an end date for a poll based on the selected duration.
 export default function generateEndDate(endDate: string) {
@@ -27,5 +27,28 @@ export const createPoll = async (data: CreatePoll) => {
     return id;
   } catch (error) {
     throw new Error('Failed to create poll');
+  }
+};
+
+export const updatePoll = async (pollId: string, data: UpdatePoll) => {
+  try {
+    const response = await fetch(`/api/vote/${pollId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update poll');
+    }
+
+    const { id } = await response.json();
+
+    return id;
+  } catch (error) {
+    throw new Error('Failed to update poll');
   }
 };

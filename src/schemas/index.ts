@@ -34,5 +34,31 @@ export const CreatePollSchema = z.object({
     .min(2, { message: 'You must include at least two options.' })
     .max(5, { message: 'You must include at most five options.' }),
 });
-
 export type CreatePoll = z.infer<typeof CreatePollSchema>;
+
+export const UpdatePollSchema = z.object({
+  title: z
+    .string()
+    .min(1, { message: 'You must include a title.' })
+    .max(200, { message: 'Title must contain a maximum of 200 characters.' }),
+  description: z.string().optional(),
+  endDate: z.union([z.string().nonempty(), z.date()]),
+  oldOptions: z.array(
+    z.object({
+      optionId: z.string(),
+      text: z.string().min(1),
+    })
+  ),
+  deleteOptions: z.array(
+    z.object({
+      optionId: z.string(),
+    })
+  ),
+  options: z.array(
+    z.object({
+      text: z.string().min(1),
+    })
+  ),
+});
+
+export type UpdatePoll = z.infer<typeof UpdatePollSchema>;
