@@ -31,7 +31,7 @@ const LoginOption = () => {
       const res = await signIn('credentials', {
         redirect: false,
         email: isAdmin ? 'admin@admin.com' : 'user@test.com',
-        password: 'temp',
+        password: isAdmin ? 'admin' : 'user',
         callbackUrl,
       });
 
@@ -43,10 +43,8 @@ const LoginOption = () => {
   };
   return (
     <Grid container spacing={1}>
-      <Grid item xs={6} sx={{ display: 'flex' }}>
-        <Card
-          sx={{ display: 'flex', bgcolor: 'secondary.main', color: 'white' }}
-        >
+      <Grid item xs={6}>
+        <Card sx={{ bgcolor: 'secondary.main', color: 'white' }}>
           <CardActionArea onClick={() => onSubmit(true)} sx={{ p: 2 }}>
             <Container>
               <Avatar

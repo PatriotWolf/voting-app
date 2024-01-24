@@ -12,10 +12,6 @@ import LoginOption from './components/LoginOption';
 const LoginPage = async ({ pageProps }: AppProps) => {
   const session = await auth();
 
-  if (session?.user) {
-    pageProps.history.push('./');
-  }
-
   return (
     <Box
       sx={{

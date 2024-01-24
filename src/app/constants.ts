@@ -1,3 +1,5 @@
+import { Session } from 'next-auth';
+
 import { CardProps } from './types';
 
 export const catergories: CardProps[] = [
@@ -9,3 +11,6 @@ export const events: CardProps[] = [
   { title: 'Event 1', description: 'This is event detail for 1.' },
   { title: 'Event 2', description: 'This is event detail for 2.' },
 ];
+
+export const isAdminSession = (session: Session | null) =>
+  session?.user?.role === 'ADMIN';

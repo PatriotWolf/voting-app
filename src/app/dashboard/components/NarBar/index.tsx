@@ -51,7 +51,7 @@ const NarBar = ({ window }: Props) => {
             color="inherit"
             variant="h4"
             underline="none"
-            href="/#top"
+            href="/dashboard"
             fontWeight={700}
           >
             {'Voting Dashboard'}

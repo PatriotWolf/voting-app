@@ -10,7 +10,6 @@ interface Props {
   reset: () => void;
 }
 export default function Error({ error, reset }: Props) {
-  console.log(error);
   return (
     <Box
       sx={{

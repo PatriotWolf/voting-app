@@ -32,7 +32,6 @@ const LoginForm = () => {
         callbackUrl,
       });
 
-      console.log(res);
       if (!res?.error) {
         router.push(callbackUrl);
       } else {

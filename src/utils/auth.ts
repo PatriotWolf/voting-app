@@ -1,6 +1,13 @@
-import NextAuth, { NextAuthConfig, User } from 'next-auth';
-import { Session } from 'next-auth';
+import NextAuth, { NextAuthConfig, Session } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import { UserRole } from '@prisma/client';
+import bcrypt from 'bcryptjs';
+import { db } from 'lib/db';
+import { LoginSchema } from 'schemas';
+
+import { getUserByEmail, getUserById } from './user';
 
 const authOptions: NextAuthConfig = {
   session: {
@@ -17,39 +24,62 @@ const authOptions: NextAuthConfig = {
     CredentialsProvider({
       name: 'Sign in',
       async authorize(credentials) {
-        if (!credentials?.email || !credentials.password) {
-          return null;
+        const validatedFields = LoginSchema.safeParse(credentials);
+
+        if (validatedFields.success) {
+          const { email, password } = validatedFields.data;
+
+          const user = await getUserByEmail(email);
+          if (!user || !user.password) return null;
+
+          const passwordsMatch = password === user.password;
+
+          if (passwordsMatch)
+            return {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              role: user.role,
+            };
         }
 
-        const users = [
-          { id: '1', name: 'Admin', email: 'admin@admin.com', isAdmin: true },
-          { id: '2', name: 'User', email: 'user@test.com' },
-        ];
-        const user = users.find(user => user.email === credentials.email);
-
-        return user || null;
+        return null;
       },
     }),
   ],
   callbacks: {
     // @ts-ignore //TODO:  fix token as JWT instead of any
     session: async ({ session, token }) => {
-      if (session.user) {
-        session.user.isAdmin = token.isAdmin;
+      if (token.sub && session.user) {
+        session.user.id = token.sub;
       }
+
+      if (token.role && session.user) {
+        session.user.role = token.role as UserRole;
+      }
+
+      if (session.user) {
+        session.user.name = token.name;
+        session.user.email = token.email;
+      }
+
       return session;
     },
-    jwt: ({ token, account, profile, user }) => {
-      if (user) {
-        token.isAdmin = (user as Session['user']).isAdmin;
-      }
-      if (account) {
-        token.accessToken = account.access_token;
-        token.id = profile?.id;
-      }
+    jwt: async ({ token, account, profile, user }) => {
+      if (!token.sub) return token;
+
+      const existingUser = await getUserById(token.sub);
+
+      if (!existingUser) return token;
+
+      token.name = existingUser.name;
+      token.email = existingUser.email;
+      token.role = existingUser.role;
+
       return token;
     },
   },
+  adapter: PrismaAdapter(db),
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth(authOptions);

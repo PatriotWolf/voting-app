@@ -1,5 +1,6 @@
 import { Toolbar } from '@mui/material/index';
 
+import MainMenu from './components/MainBox';
 import NarBar from './components/NarBar';
 
 interface Props {
@@ -9,7 +10,7 @@ const Layout = ({ children }: Props) => {
   return (
     <>
       <NarBar />
-      {children}
+      <MainMenu>{children}</MainMenu>
     </>
   );
 };
