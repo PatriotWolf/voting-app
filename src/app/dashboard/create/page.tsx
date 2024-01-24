@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 
+import { Box, Typography } from '@mui/material';
+
 import CreatePollForm from './components/CreatePollForm';
 
 export const metadata: Metadata = {
@@ -8,12 +10,12 @@ export const metadata: Metadata = {
 
 async function Create() {
   return (
-    <div className="sm:px-4">
-      <h1 className="mx-auto my-12 max-w-xl px-4 text-center text-2xl font-semibold leading-tight">
-        Complete the fields to create your poll.
-      </h1>
+    <Box>
+      <Typography variant="h3">
+        Complete the fields to create your Vote.
+      </Typography>
       <CreatePollForm />
-    </div>
+    </Box>
   );
 }
 

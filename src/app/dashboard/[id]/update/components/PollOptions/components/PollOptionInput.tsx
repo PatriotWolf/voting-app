@@ -1,5 +1,5 @@
 import { Cancel } from '@mui/icons-material';
-import { Button, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import { UpdatePoll } from 'schemas';
 
@@ -20,8 +20,8 @@ const PollOptionInput = ({
   optionName: 'oldOptions' | 'options';
 }) => {
   return (
-    <div>
-      <div className="relative mb-2 flex items-center">
+    <Box>
+      <Box>
         <TextField
           key={index}
           id={`option-${index}`}
@@ -40,8 +40,8 @@ const PollOptionInput = ({
             <Cancel />
           </Button>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

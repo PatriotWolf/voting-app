@@ -6,6 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Box,
   Button,
+  FormControl,
+  InputLabel,
   MenuItem,
   Select,
   TextField,
@@ -81,18 +83,16 @@ const UpdatePollForm = ({ defaultPoll }: Props) => {
           <PollOptions control={control} errors={errors} register={register} />
         </Box>
 
-        <Box className="flex flex-col gap-2">
-          <Select
-            id="end-date"
-            defaultValue={'5'}
-            className="w-full rounded border border-brand-surface bg-brand-crust px-4 py-3 text-brand-subtext caret-brand-mauve focus:outline-none focus:ring-1 focus:ring-brand-mauve"
-            {...register('endDate')}
-          >
-            <MenuItem value="5">5 minutes</MenuItem>
-            <MenuItem value="10">10 minutes</MenuItem>
-            <MenuItem value="15">15 minutes</MenuItem>
-            <MenuItem value="20">20 minutes</MenuItem>
-          </Select>
+        <Box>
+          <FormControl sx={{ my: 2 }}>
+            <InputLabel id="end-date">End Time</InputLabel>
+            <Select id="end-date" defaultValue={'5'} {...register('endDate')}>
+              <MenuItem value="5">5 minutes</MenuItem>
+              <MenuItem value="10">10 minutes</MenuItem>
+              <MenuItem value="15">15 minutes</MenuItem>
+              <MenuItem value="20">20 minutes</MenuItem>
+            </Select>
+          </FormControl>
         </Box>
         {errors.options?.length && (
           <Typography>Blank option not allowed</Typography>

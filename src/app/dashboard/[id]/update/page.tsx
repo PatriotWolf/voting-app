@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 
+import { Box, Typography } from '@mui/material/index';
 import { db } from 'lib/db';
 
 import UpdatePollForm from './components/UpdatePollForm';
@@ -25,12 +26,10 @@ const UpdatePollPage = async ({ params: { id } }: PageProps) => {
   if (!poll) notFound();
 
   return (
-    <div className="sm:px-4">
-      <h1 className="mx-auto my-12 max-w-xl px-4 text-center text-2xl font-semibold leading-tight">
-        Complete the fields to create your poll.
-      </h1>
+    <Box>
+      <Typography variant="h3">Poll Update For {poll.title}.</Typography>
       <UpdatePollForm defaultPoll={poll} />
-    </div>
+    </Box>
   );
 };
 

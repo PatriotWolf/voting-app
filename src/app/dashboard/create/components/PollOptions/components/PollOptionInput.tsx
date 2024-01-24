@@ -1,5 +1,5 @@
 import { Cancel } from '@mui/icons-material';
-import { Button, TextField } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import {
   FieldErrors,
   UseFieldArrayRemove,
@@ -13,7 +13,6 @@ const PollOptionInput = ({
   remove,
   value,
   disableRemove,
-  errors,
 }: {
   index: number;
   register: UseFormRegister<CreatePoll>;
@@ -23,8 +22,8 @@ const PollOptionInput = ({
   disableRemove: boolean;
 }) => {
   return (
-    <div>
-      <div className="relative mb-2 flex items-center">
+    <Box>
+      <Box>
         <TextField
           key={index}
           id={`option-${index}`}
@@ -38,8 +37,8 @@ const PollOptionInput = ({
             <Cancel />
           </Button>
         )}
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 };
 

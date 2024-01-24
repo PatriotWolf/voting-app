@@ -1,5 +1,5 @@
 import { Add } from '@mui/icons-material';
-import { Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import {
   Control,
   FieldErrors,
@@ -28,7 +28,7 @@ const PollOptions = ({
 
   return (
     <>
-      <div className="flex flex-col gap-2">
+      <Box>
         <Typography variant="h6">Options</Typography>
         {fields?.map((field, index) => {
           return (
@@ -43,7 +43,7 @@ const PollOptions = ({
             />
           );
         })}
-      </div>
+      </Box>
 
       {fields?.length < maxOptions && (
         <Button onClick={() => append({ text: '' })}>
