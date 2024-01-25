@@ -4,9 +4,11 @@ import { PollOption } from '@prisma/client';
 interface Props {
   option: PollOption;
   viewMode: 'display' | 'functional';
+  disabled: boolean;
+  onClick?: () => void;
 }
 
-const ListItemContainer = ({ option, viewMode }: Props) => {
+const ListItemContainer = ({ option, viewMode, disabled, onClick }: Props) => {
   return (
     <ListItem>
       {viewMode === 'display' ? (
@@ -27,6 +29,8 @@ const ListItemContainer = ({ option, viewMode }: Props) => {
         />
       ) : (
         <ListItemButton
+          disabled={disabled}
+          onClick={onClick}
           sx={{
             border: '2px solid',
             borderRadius: 3,

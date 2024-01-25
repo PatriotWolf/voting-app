@@ -2,12 +2,14 @@ import React from 'react';
 
 import { notFound, redirect } from 'next/navigation';
 
-import { Box, Paper } from '@mui/material/index';
-import PollCard from 'app/components/PollCard';
+import { Alert, AlertTitle, Box, Typography } from '@mui/material/index';
 import { isAdminSession } from 'app/constants';
 import { db } from 'lib/db';
 
 import { auth } from 'utils/auth';
+import isPollFinished from 'utils/date';
+
+import PollPaper from './components/PollPaper';
 
 interface PageProps {
   params: {
@@ -43,7 +45,6 @@ const VoteDetailPage = async ({ params: { id } }: PageProps) => {
         justifyContent: 'center',
         alignContent: 'center',
         flexGrow: 1,
-        flexDirection: 'row',
         bgcolor: 'primary.main',
         color: 'common.white',
       }}
@@ -59,15 +60,16 @@ const VoteDetailPage = async ({ params: { id } }: PageProps) => {
             xs: '100%',
             md: '600px',
           },
+          gap: 4,
         }}
       >
-        <Paper
-          sx={{
-            p: 1,
-          }}
-        >
-          <PollCard vote={vote} viewMode="functional" />
-        </Paper>
+        {isPollFinished(vote.endsAt) && (
+          <Alert severity="error">
+            <AlertTitle>OPPSSS</AlertTitle>
+            <Typography>The Poll has ended!</Typography>
+          </Alert>
+        )}
+        <PollPaper vote={vote} />
       </Box>
     </Box>
   );
