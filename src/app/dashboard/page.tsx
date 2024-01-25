@@ -4,10 +4,14 @@ import { redirect } from 'next/navigation';
 
 import {
   Button,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
+  Link,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
   Typography,
 } from '@mui/material/index';
 import { isAdminSession } from 'app/constants';
@@ -29,25 +33,44 @@ const DashboardPage = async () => {
   const votes = await getVote();
   return (
     <>
-      <Typography variant="h3">This is dashboard page for admin</Typography>
-      <Typography variant="h6">Vote</Typography>
-      <List>
-        {votes.map(vote => (
-          <ListItem disablePadding key={'Vote_List' + vote.id}>
-            <ListItemButton
-              component="a"
-              href={'/dashboard/' + vote.id}
-              sx={{}}
-            >
-              <ListItemText
-                primary={vote.title}
-                about={vote.description || undefined}
-              />
-              <ListItemText primary={vote.createdAt.toDateString()} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      <Typography variant="h3">Welcome dear admin!</Typography>
+
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Title</TableCell>
+              <TableCell align="right">Ends at</TableCell>
+              <TableCell align="right">Total Vote</TableCell>
+              <TableCell align="right">Last Update</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {votes.map(vote => (
+              <TableRow
+                key={'Vote_List' + vote.id}
+                component={Link}
+                href={`/dashboard/${vote.id}/`}
+                underline="none"
+                hover
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {vote.title}
+                </TableCell>
+                <TableCell align="right">
+                  {vote.endsAt.toDateString()}
+                </TableCell>
+                <TableCell align="right">{vote.totalCount}</TableCell>
+                <TableCell align="right">
+                  {vote.updatedAt.toDateString()}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
       <Button component="a" href={'/dashboard/create'}>
         Add Vote
       </Button>

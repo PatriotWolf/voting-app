@@ -23,13 +23,61 @@ const votes = [
   {
     title: 'Vote 1',
     description: 'This is first vote',
-    endDate: '2024-01-24T09:09:06.427Z',
+    endDate: new Date(),
     options: [{ text: 'Option 1' }, { text: 'Option 2' }],
   },
   {
     title: 'Vote 2',
     description: 'This is second vote',
-    endDate: '2024-01-24T09:09:06.427Z',
+    endDate: new Date(),
+    options: [{ text: 'Option 1' }, { text: 'Option 2' }],
+  },
+  {
+    title: 'Vote 3',
+    description: 'This is third vote',
+    endDate: new Date(),
+    options: [{ text: 'Option 1' }, { text: 'Option 2' }],
+  },
+  {
+    title: 'Vote 4',
+    description: 'This is forth vote',
+    endDate: new Date(),
+    options: [{ text: 'Option 1' }, { text: 'Option 2' }],
+  },
+  {
+    title: 'Vote 5',
+    description: 'This is fifth vote',
+    endDate: new Date(),
+    options: [{ text: 'Option 1' }, { text: 'Option 2' }],
+  },
+  {
+    title: 'Vote 6',
+    description: 'This is sixth vote',
+    endDate: new Date(),
+    options: [{ text: 'Option 1' }, { text: 'Option 2' }],
+  },
+  {
+    title: 'Vote 7',
+    description: 'This is seventh vote',
+    endDate: new Date(),
+    options: [{ text: 'Option 1' }, { text: 'Option 2' }],
+  },
+  {
+    title: 'Vote 8',
+    description: 'This is eighth vote',
+    endDate: new Date(),
+    options: [{ text: 'Option 1' }, { text: 'Option 2' }],
+  },
+  {
+    title: 'Vote 9',
+    description: 'This is ninth vote',
+    endDate: new Date(),
+    options: [{ text: 'Option 1' }, { text: 'Option 2' }],
+  },
+  {
+    title: 'Vote 10',
+    description: 'This is tenth vote',
+    endDate: new Date(),
     options: [{ text: 'Option 1' }, { text: 'Option 2' }],
   },
 ];
