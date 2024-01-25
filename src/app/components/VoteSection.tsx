@@ -1,6 +1,5 @@
 'use client';
 
-
 import { Add } from '@mui/icons-material';
 import {
   Card,
@@ -38,6 +37,7 @@ const VoteSection = ({ title, list, isAdmin }: Props) => {
               key={'main_card' + title + index}
             >
               <MediaCard
+                id={listElement.id}
                 title={listElement.title}
                 description={listElement.description || ''}
               />
