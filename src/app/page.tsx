@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Box, ButtonGroup, Grid, Typography } from '@mui/material/index';
+import { Box, Button, Grid, Typography } from '@mui/material/index';
 import { db } from 'lib/db';
 
 import { auth } from 'utils/auth';
 
 import { LoginButton, LogoutButton } from './components/ButtonLogin';
 import VoteSection from './components/VoteSection';
-import { catergories, events, isAdminSession } from './constants';
+import { isAdminSession } from './constants';
 
 async function getVote() {
   const book = await db.poll.findMany({});
@@ -34,20 +34,22 @@ const HomePage = async () => {
         variant="h2"
         textAlign={'center'}
         sx={{
-          pt: 2,
+          pt: 4,
         }}
       >
         Voting App
       </Typography>
       {isAdmin && (
-        <Typography
-          variant="h2"
-          component="a"
-          href="/dashboard"
-          textAlign={'center'}
-        >
-          Take me to dashboard
-        </Typography>
+        <Box textAlign="center">
+          <Button
+            href="/dashboard"
+            variant="contained"
+            color="secondary"
+            fullWidth={false}
+          >
+            Take me to dashboard
+          </Button>
+        </Box>
       )}
       <Grid
         container
