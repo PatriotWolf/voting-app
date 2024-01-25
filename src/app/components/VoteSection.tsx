@@ -1,7 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 
+import { Add } from '@mui/icons-material';
 import {
   Card,
   CardActionArea,
@@ -9,13 +9,13 @@ import {
   Typography,
   Unstable_Grid2,
 } from '@mui/material/index';
-import { CardProps } from 'app/types';
 
 import MediaCard from './MediaCard';
+import { Poll } from '.prisma/client';
 
 interface Props {
   title: string;
-  list: CardProps[];
+  list: Poll[];
   isAdmin: boolean;
 }
 
@@ -39,7 +39,7 @@ const VoteSection = ({ title, list, isAdmin }: Props) => {
             >
               <MediaCard
                 title={listElement.title}
-                description={listElement.description}
+                description={listElement.description || ''}
               />
             </Unstable_Grid2>
           );
@@ -48,32 +48,37 @@ const VoteSection = ({ title, list, isAdmin }: Props) => {
         {isAdmin && (
           <Unstable_Grid2 xs={12} md={6} lg={3} style={{ display: 'flex' }}>
             <Card
-              style={{
+              sx={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 flexDirection: 'column',
+                width: '100%',
+                bgcolor: 'secondary.main',
+                color: 'common.white',
               }}
             >
-              <CardActionArea>
-                <Image
-                  alt="Random image"
-                  priority
-                  src="/download.png"
-                  width={640}
-                  height={480}
-                  style={{
-                    maxWidth: '100%',
+              <CardActionArea
+                sx={{
+                  height: '100%',
+                  border: 1,
+                  borderColor: '  #fff',
+                }}
+              >
+                <Add
+                  fontSize="large"
+                  sx={{
+                    backgroundColor: 'primary.main',
+                    width: '100%',
                     height: '200px',
-                    objectFit: 'cover',
+                    objectFit: 'contain',
+                    fontSize: 100,
                   }}
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
                     {title}
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    add {title}
-                  </Typography>
+                  <Typography variant="body2">add {title}</Typography>
                 </CardContent>
               </CardActionArea>
             </Card>
